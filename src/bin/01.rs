@@ -1,19 +1,13 @@
 advent_of_code::solution!(1);
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let mut total_sum = 0;
-
-    for (index, line) in input.lines().enumerate() {
+    let total_sum = input.lines().map(|line| {
         let parsed_digits = parse_digits(&line);
         let first_digit = parsed_digits.first().unwrap();
         let last_digit = parsed_digits.last().unwrap();
-        let sum = format!("{:?}{:?}", first_digit, last_digit)
-            .parse::<u32>()
-            .unwrap();
-        total_sum += sum;
-
-        println!("{}. {} = {}{}", index + 1, line, first_digit, last_digit);
-    }
+        let sum: u32 = format!("{:?}{:?}", first_digit, last_digit).parse::<u32>().unwrap();
+        sum
+    }).sum();
 
     Some(total_sum)
 }
