@@ -22,7 +22,6 @@ pub fn part_two(input: &str) -> Option<u32> {
         .lines()
         .map(|line| {
             let spelled_letters = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-            let mut found_spelled_numbers_indexes = vec![];
             let mut temporary_line_chars = String::new();
             let mut new_line = String::from(line);
             for c in line.chars() {
@@ -40,7 +39,6 @@ pub fn part_two(input: &str) -> Option<u32> {
 
                 match found_spelled_index {
                     Some(i) => {
-                        found_spelled_numbers_indexes.push(i);
                         new_line = new_line.replacen(spelled_letters[i], (i + 1).to_string().as_str(), 1);
                         temporary_line_chars.clear();
                         continue
@@ -48,7 +46,6 @@ pub fn part_two(input: &str) -> Option<u32> {
                     None => continue,
                 }
             }
-
 
             let parsed_digits = parse_digits(&new_line);
             let first_digit = parsed_digits.first().unwrap();
