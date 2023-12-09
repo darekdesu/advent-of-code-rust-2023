@@ -21,7 +21,9 @@ pub fn part_two(input: &str) -> Option<u32> {
     let total_sum = input
         .lines()
         .map(|line| {
-            let spelled_letters = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+            let spelled_letters = [
+                "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+            ];
             let mut temporary_line_chars = String::new();
             let mut new_line = String::from(line);
             for c in line.chars() {
@@ -31,18 +33,21 @@ pub fn part_two(input: &str) -> Option<u32> {
                 // if is number then continue (and reset temporary chars variable)
                 if c.is_digit(10) {
                     temporary_line_chars.clear();
-                    continue
+                    continue;
                 }
 
                 // if substring contains item from array of spelled numbers add it to found spelled numbers array
-                let found_spelled_index = spelled_letters.iter().position(|&item| temporary_line_chars.contains(item));
+                let found_spelled_index = spelled_letters
+                    .iter()
+                    .position(|&item| temporary_line_chars.contains(item));
 
                 match found_spelled_index {
                     Some(i) => {
-                        new_line = new_line.replacen(spelled_letters[i], (i + 1).to_string().as_str(), 1);
+                        new_line =
+                            new_line.replacen(spelled_letters[i], (i + 1).to_string().as_str(), 1);
                         temporary_line_chars.clear();
-                        continue
-                    },
+                        continue;
+                    }
                     None => continue,
                 }
             }
