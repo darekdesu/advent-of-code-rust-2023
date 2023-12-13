@@ -4,7 +4,7 @@ pub fn part_one(input: &str) -> Option<u32> {
     let total_sum = input
         .lines()
         .map(|line| {
-            let parsed_digits = parse_digits(&line);
+            let parsed_digits = parse_digits(line);
             let first_digit = parsed_digits.first().unwrap();
             let last_digit = parsed_digits.last().unwrap();
             let sum: u32 = format!("{:?}{:?}", first_digit, last_digit)
@@ -31,7 +31,7 @@ pub fn part_two(input: &str) -> Option<u32> {
                 temporary_line_chars.push(c);
 
                 // if is number then continue (and reset temporary chars variable)
-                if c.is_digit(10) {
+                if c.is_ascii_digit() {
                     temporary_line_chars.clear();
                     continue;
                 }
