@@ -4,11 +4,11 @@ const GREEN_CUBES_LIMIT: u32 = 13;
 const BLUE_CUBES_LIMIT: u32 = 14;
 
 pub fn is_limit_reached(words: Vec<&str>, limit: u32) -> bool {
-    words.get(0).unwrap_or(&"0").parse().unwrap_or(0) > limit
+    words.first().unwrap_or(&"0").parse().unwrap_or(0) > limit
 }
 
 pub fn get_number_of_cubes(words: Vec<&str>) -> u32 {
-    words.get(0).unwrap_or(&"0").parse().unwrap_or(0)
+    words.first().unwrap_or(&"0").parse().unwrap_or(0)
 }
 pub fn part_one(input: &str) -> Option<u32> {
     let result =
@@ -22,7 +22,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
                 line.split(|c| c == ':' || c == ';' || c == ',')
                     .for_each(|s| {
-                        let game_with_outputs: Vec<&str> = s.trim().split_whitespace().collect();
+                        let game_with_outputs: Vec<&str> = s.split_whitespace().collect();
 
                         match s {
                             s if s.contains("Game") => {
@@ -42,9 +42,9 @@ pub fn part_one(input: &str) -> Option<u32> {
                         }
                     });
 
-                if red_counter.iter().find(|&&x| x == true).is_some()
-                    || green_counter.iter().find(|&&x| x == true).is_some()
-                    || blue_counter.iter().find(|&&x| x == true).is_some()
+                if red_counter.iter().any(|&x| x)
+                    || green_counter.iter().any(|&x| x)
+                    || blue_counter.iter().any(|&x| x)
                 {
                     return 0;
                 }
@@ -67,7 +67,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 
             line.split(|c| c == ':' || c == ';' || c == ',')
                 .for_each(|s| {
-                    let game_with_outputs: Vec<&str> = s.trim().split_whitespace().collect();
+                    let game_with_outputs: Vec<&str> = s.split_whitespace().collect();
 
                     match s {
                         s if s.contains("Game") => {
