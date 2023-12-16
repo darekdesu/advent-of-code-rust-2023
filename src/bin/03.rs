@@ -39,7 +39,6 @@ pub fn part_one(input: &str) -> Option<u32> {
         let mut is_current_temporary_eligible = false;
         for j in 1..size - 1 {
             let current = grid[i][j];
-            let next = grid[i][j + 1];
             let is_last = j == (size - 2);
 
             if is_engine_number(current) {
@@ -54,20 +53,16 @@ pub fn part_one(input: &str) -> Option<u32> {
                         is_current_temporary_eligible = true;
                     }
                 });
-            } else if !temporary_value.is_empty() && is_current_temporary_eligible {
+            } else if is_current_temporary_eligible {
                 found_values_list.push(temporary_value.clone());
                 is_current_temporary_eligible = false;
                 temporary_value.clear();
-            }
-
-            if next == '.' && !temporary_value.is_empty() && !is_current_temporary_eligible {
+            } else if !is_current_temporary_eligible {
                 temporary_value.clear();
             }
 
-            if is_last && !temporary_value.is_empty() && is_current_temporary_eligible {
+            if is_last && is_current_temporary_eligible {
                 found_values_list.push(temporary_value.clone());
-                is_current_temporary_eligible = false;
-                temporary_value.clear();
             }
         }
     }
